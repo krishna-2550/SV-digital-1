@@ -7,10 +7,32 @@ const stats = [
   { value: "4.9/5", label: "Client satisfaction rating" },
 ];
 
+const capabilities = [
+  "SEO and content growth",
+  "Performance media buying",
+  "Social media management",
+  "Conversion rate optimization",
+];
+
+const faqs = [
+  {
+    q: "How quickly can SV DIGITAL start a campaign?",
+    a: "Most projects start within 5-7 business days after strategy alignment and asset handoff.",
+  },
+  {
+    q: "Do you offer monthly reporting?",
+    a: "Yes, we provide transparent monthly reporting with KPI trends, wins, and next-step actions.",
+  },
+  {
+    q: "Can I choose only one service?",
+    a: "Absolutely. You can begin with one focused service and scale to full-funnel marketing later.",
+  },
+];
+
 export default function Home() {
   return (
     <div>
-      <section className="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white">
+      <section className="bg-linear-to-br from-slate-950 via-slate-900 to-indigo-950 text-white">
         <div className="mx-auto grid w-full max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:px-8 lg:py-20">
           <div>
             <p className="inline-block rounded-full border border-white/20 px-4 py-1 text-xs uppercase tracking-[0.18em] text-indigo-200">
@@ -60,6 +82,46 @@ export default function Home() {
               <p className="mt-2 text-sm text-slate-600">{stat.label}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mx-auto w-full max-w-7xl px-4 pb-14 sm:px-6 lg:px-8">
+        <div className="grid gap-6 rounded-3xl bg-white p-6 shadow-sm lg:grid-cols-2 lg:p-10">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-indigo-700">
+              Why choose us
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-slate-900">
+              A full-stack marketing team focused on revenue.
+            </h2>
+            <p className="mt-4 text-slate-600">
+              From acquisition to retention, we optimize every touchpoint to turn
+              traffic into paying customers.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              {capabilities.map((capability) => (
+                <p key={capability} className="rounded-xl bg-slate-100 px-4 py-3 text-sm text-slate-700">
+                  {capability}
+                </p>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-2xl bg-slate-950 p-6 text-slate-200">
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-indigo-300">
+              FAQs
+            </p>
+            <div className="mt-5 space-y-3">
+              {faqs.map((faq) => (
+                <details key={faq.q} className="rounded-xl bg-slate-900 px-4 py-3">
+                  <summary className="cursor-pointer text-sm font-semibold text-white">
+                    {faq.q}
+                  </summary>
+                  <p className="mt-2 text-sm leading-6 text-slate-300">{faq.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </div>

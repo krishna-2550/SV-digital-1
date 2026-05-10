@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactForm from "@/components/contact-form";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -34,78 +35,7 @@ export default function ContactPage() {
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <form className="space-y-5">
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="name">
-              Full Name
-            </label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-              placeholder="Your name"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="email">
-              Email Address
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-              placeholder="you@company.com"
-              required
-            />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="service">
-              Service Needed
-            </label>
-            <select
-              id="service"
-              name="service"
-              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-              required
-              defaultValue=""
-            >
-              <option value="" disabled>
-                Select one
-              </option>
-              <option value="seo">SEO</option>
-              <option value="paid-media">Paid Media</option>
-              <option value="social-media">Social Media Marketing</option>
-              <option value="content">Content and Creative</option>
-              <option value="automation">Marketing Automation</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="message">
-              Project Brief
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              rows={5}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-              placeholder="Tell us about your goals and timeline..."
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
-          >
-            Send Inquiry
-          </button>
-        </form>
+        <ContactForm />
       </section>
     </div>
   );
