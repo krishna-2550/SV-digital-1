@@ -4,6 +4,9 @@ import { FormEvent, useState } from "react";
 
 type SubmitStatus = "idle" | "submitting" | "success" | "error";
 
+const inputClass =
+  "w-full rounded-2xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:ring-2 focus:ring-violet-200";
+
 export default function ContactForm() {
   const [status, setStatus] = useState<SubmitStatus>("idle");
   const [message, setMessage] = useState("");
@@ -45,75 +48,60 @@ export default function ContactForm() {
   return (
     <form className="space-y-5" onSubmit={handleSubmit}>
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="name">
-          Full Name
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500" htmlFor="name">
+          Full name
         </label>
-        <input
-          id="name"
-          name="name"
-          type="text"
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-          placeholder="Your name"
-          required
-        />
+        <input id="name" name="name" type="text" className={inputClass} placeholder="Your name" required />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="email">
-          Email Address
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500" htmlFor="email">
+          Work email
         </label>
         <input
           id="email"
           name="email"
           type="email"
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
+          className={inputClass}
           placeholder="you@company.com"
           required
         />
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="service">
-          Service Needed
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500" htmlFor="service">
+          Primary focus
         </label>
-        <select
-          id="service"
-          name="service"
-          className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-          required
-          defaultValue=""
-        >
+        <select id="service" name="service" className={inputClass} required defaultValue="">
           <option value="" disabled>
             Select one
           </option>
           <option value="seo">SEO</option>
-          <option value="paid-media">Paid Media</option>
-          <option value="social-media">Social Media Marketing</option>
-          <option value="content">Content and Creative</option>
-          <option value="automation">Marketing Automation</option>
+          <option value="paid-media">Paid media</option>
+          <option value="social-media">Social media</option>
+          <option value="content">Content & creative</option>
+          <option value="automation">Marketing automation</option>
         </select>
       </div>
 
       <div>
-        <label className="mb-2 block text-sm font-medium text-slate-700" htmlFor="message">
-          Project Brief
+        <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-500" htmlFor="message">
+          Project brief
         </label>
         <textarea
           id="message"
           name="message"
           rows={5}
-          className="w-full rounded-xl border border-slate-300 px-4 py-3 text-sm outline-none ring-indigo-200 transition focus:ring-2"
-          placeholder="Tell us about your goals and timeline..."
+          className={`${inputClass} resize-y min-h-[120px]`}
+          placeholder="Goals, timeline, budget range, and what’s broken today…"
           required
         />
       </div>
 
       {message ? (
         <p
-          className={`rounded-xl px-4 py-3 text-sm ${
-            status === "success"
-              ? "bg-emerald-50 text-emerald-700"
-              : "bg-red-50 text-red-700"
+          className={`rounded-2xl px-4 py-3 text-sm ${
+            status === "success" ? "bg-emerald-50 text-emerald-800" : "bg-red-50 text-red-800"
           }`}
         >
           {message}
@@ -123,9 +111,9 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="w-full rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-500"
+        className="w-full rounded-2xl bg-linear-to-r from-violet-600 to-fuchsia-600 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-fuchsia-500 disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "submitting" ? "Sending..." : "Send Inquiry"}
+        {status === "submitting" ? "Sending…" : "Send inquiry"}
       </button>
     </form>
   );

@@ -16,6 +16,7 @@ const navItems = [
 export default function SiteHeader() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const portalReady = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -53,6 +54,24 @@ export default function SiteHeader() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    let ticking = false;
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 8);
+          ticking = false;
+        });
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const mobileOverlay = portalReady
     ? createPortal(
       <div
@@ -71,15 +90,17 @@ export default function SiteHeader() {
           aria-modal="true"
           aria-label="Site navigation"
         >
-          <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-1 bg-linear-to-b from-indigo-600 via-violet-500 to-indigo-400 sm:block" />
+          <div className="pointer-events-none absolute left-0 top-0 hidden h-full w-1 bg-linear-to-b from-violet-600 via-fuchsia-500 to-cyan-500 sm:block" />
 
           <div className="relative mx-auto flex w-full max-w-lg flex-1 flex-col px-6 pb-[max(1.5rem,env(safe-area-inset-bottom))] pt-[max(1.25rem,env(safe-area-inset-top))]">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-indigo-600">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-violet-600">
                   Navigate
                 </p>
-                <p className="mt-2 text-xl font-bold tracking-tight text-slate-900">SV DIGITAL</p>
+                <p className="font-display mt-2 bg-linear-to-r from-violet-700 via-fuchsia-600 to-cyan-600 bg-clip-text text-xl font-extrabold tracking-tight text-transparent">
+                  SV DIGITAL
+                </p>
                 <p className="mt-2 max-w-[16rem] text-sm leading-relaxed text-slate-500">
                   Performance marketing built for clarity and measurable growth.
                 </p>
@@ -109,19 +130,19 @@ export default function SiteHeader() {
                         onClick={() => setIsMenuOpen(false)}
                         className="group flex items-center gap-4 py-5 transition-colors"
                       >
-                        <span className="w-9 shrink-0 text-right text-[11px] font-semibold tabular-nums text-slate-400 transition group-hover:text-indigo-600">
+                        <span className="w-9 shrink-0 text-right text-[11px] font-semibold tabular-nums text-slate-400 transition group-hover:text-violet-600">
                           {num}
                         </span>
                         <span
-                          className={`min-w-0 flex-1 text-2xl font-semibold tracking-tight transition-colors sm:text-3xl ${
+                          className={`font-display min-w-0 flex-1 text-2xl font-semibold tracking-tight transition-colors sm:text-3xl ${
                             isActive
-                              ? "text-indigo-600"
-                              : "text-slate-900 group-hover:text-indigo-600"
+                              ? "text-violet-600"
+                              : "text-slate-900 group-hover:text-violet-600"
                           }`}
                         >
                           {item.label}
                         </span>
-                        <span className="shrink-0 text-xl text-indigo-600 opacity-0 transition group-hover:opacity-100" aria-hidden>
+                        <span className="shrink-0 text-xl text-violet-600 opacity-0 transition group-hover:opacity-100" aria-hidden>
                           →
                         </span>
                       </Link>
@@ -135,7 +156,7 @@ export default function SiteHeader() {
               <Link
                 href="/contact"
                 onClick={() => setIsMenuOpen(false)}
-                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-slate-900 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
+                className="flex w-full items-center justify-center gap-2 rounded-2xl bg-linear-to-r from-violet-600 to-fuchsia-600 px-6 py-4 text-sm font-bold text-white shadow-lg shadow-violet-500/25 transition hover:from-violet-500 hover:to-fuchsia-500"
               >
                 Book a strategy call
                 <span aria-hidden>→</span>
@@ -144,7 +165,7 @@ export default function SiteHeader() {
                 <span className="text-slate-400">Prefer email?</span>{" "}
                 <a
                   href="mailto:hello@svdigital.com"
-                  className="font-medium text-slate-700 underline underline-offset-2 hover:text-indigo-600"
+                  className="font-medium text-slate-700 underline underline-offset-2 hover:text-violet-600"
                 >
                   hello@svdigital.com
                 </a>
@@ -159,15 +180,24 @@ export default function SiteHeader() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b border-slate-200/60 bg-white/95 backdrop-blur">
+      <header
+        className={`sticky top-0 z-50 border-b backdrop-blur-xl transition-[box-shadow,background-color,border-color] duration-300 ${
+          scrolled
+            ? "border-slate-200/90 bg-white/85 shadow-md shadow-violet-500/10"
+            : "border-slate-200/50 bg-white/80"
+        }`}
+      >
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <Link href="/" className="text-lg font-bold tracking-wide text-slate-900">
+          <Link
+            href="/"
+            className="font-display bg-linear-to-r from-violet-700 via-fuchsia-600 to-cyan-600 bg-clip-text text-lg font-extrabold tracking-tight text-transparent"
+          >
             SV DIGITAL
           </Link>
 
           <button
             type="button"
-            className="relative grid h-11 w-11 place-items-center rounded-2xl border border-slate-200 bg-white text-slate-900 shadow-sm transition hover:border-slate-300 hover:bg-slate-50 md:hidden"
+            className="relative grid h-11 w-11 place-items-center rounded-2xl border border-violet-200/80 bg-white text-slate-900 shadow-sm shadow-violet-500/10 transition hover:border-violet-300 hover:bg-violet-50/80 md:hidden"
             onClick={() => setIsMenuOpen((prev) => !prev)}
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
@@ -200,11 +230,11 @@ export default function SiteHeader() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-full px-3 py-2 text-sm font-medium transition ${
-                    isActive
-                      ? "bg-slate-900 text-white"
-                      : "text-slate-700 hover:bg-slate-100 hover:text-slate-900"
-                  }`}
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? "bg-linear-to-r from-violet-600 to-fuchsia-600 text-white shadow-md shadow-violet-500/25"
+                    : "text-slate-700 hover:bg-violet-50 hover:text-violet-900"
+                }`}
                 >
                   {item.label}
                 </Link>

@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f6f4ff;
+  --foreground: #0f0a1a;
+  --surface: #faf8ff;
+  --surface-elevated: #ffffff;
+  --brand: #6d28d9;
+  --brand-soft: #ede9fe;
+  --accent: #0891b2;
+  --accent-soft: #cffafe;
+  --mesh-1: rgba(109, 40, 217, 0.14);
+  --mesh-2: rgba(8, 145, 178, 0.1);
+  --mesh-3: rgba(217, 70, 239, 0.08);
 }
 
 @theme inline {
@@ -12,9 +21,51 @@
   --font-mono: var(--font-geist-mono);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
-  background: var(--background);
+  background: var(--surface);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-display), var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+.page-mesh {
+  background-color: var(--surface);
+  background-image:
+    radial-gradient(ellipse 100% 80% at 100% -10%, var(--mesh-1), transparent 50%),
+    radial-gradient(ellipse 80% 60% at 0% 100%, var(--mesh-2), transparent 45%),
+    radial-gradient(ellipse 60% 50% at 80% 60%, var(--mesh-3), transparent 40%);
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float-soft {
+    animation: none;
+  }
 }
